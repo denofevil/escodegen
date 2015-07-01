@@ -1265,6 +1265,15 @@
             return result;
         },
 
+        ExportDefaultDeclaration: function (stmt, flags) {
+             stmt.default = true;
+             return this.ExportDeclaration(stmt, flags);
+        },
+
+        ExportNamedDeclaration: function (stmt, flags) {
+            return this.ExportDeclaration(stmt, flags);
+        },
+
         ExpressionStatement: function (stmt, flags) {
             var result, fragment;
 
@@ -2232,7 +2241,7 @@
         },
 
         ImportDefaultSpecifier: function (expr, precedence, flags) {
-            return generateIdentifier(expr.id);
+            return generateIdentifier(expr.id || expr.local);
         },
 
         ImportNamespaceSpecifier: function (expr, precedence, flags) {
@@ -2248,7 +2257,7 @@
         },
 
         ExportSpecifier: function (expr, precedence, flags) {
-            var result = [ expr.id.name ];
+            var result = [ (expr.id || expr.local).name ];
             if (expr.name) {
                 result.push(noEmptySpace() + 'as' + noEmptySpace() + generateIdentifier(expr.name));
             }
