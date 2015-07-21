@@ -1797,6 +1797,10 @@
             return this.generateAssignment(expr.left, expr.right, expr.operator, precedence, flags);
         },
 
+        AssignmentPattern: function (expr, precedence, flags) {
+            return this.generateAssignment(expr.left, expr.right, expr.operator, precedence, flags);
+        },
+
         ArrowFunctionExpression: function (expr, precedence, flags) {
             return parenthesize(this.generateFunctionBody(expr), Precedence.ArrowFunction, precedence);
         },
